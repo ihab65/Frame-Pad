@@ -16,3 +16,9 @@ pub struct Element {
 /// Marker for the background grid
 #[derive(Component)]
 pub struct Grid;
+
+#[derive(Component)]
+pub struct WorldCamera;
+
+#[derive(Component)]
+pub struct UiCamera;

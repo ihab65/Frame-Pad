@@ -1,6 +1,8 @@
+use bevy::ecs::system::Query;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
-use super::components::Node;
+use super::components::{Node, WorldCamera};
+
 
 pub fn place_node(
     mut commands: Commands,
@@ -8,9 +10,9 @@ pub fn place_node(
     mut materials: ResMut<Assets<ColorMaterial>>,
     mouse: Res<ButtonInput<MouseButton>>,
     window: Single<&Window, With<PrimaryWindow>>,
-    camera: Single<(&Camera, &GlobalTransform)>
-) -> Result{
-    let (camera, cam_tf) = camera.into_inner();
+    camera: Query<(&Camera, &GlobalTransform), With<WorldCamera>>,
+) -> Result {
+    let (camera, cam_tf) = camera.single()?;
 
     if mouse.just_pressed(MouseButton::Left) {
         println!("Placing node...");

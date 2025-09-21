@@ -3,7 +3,7 @@ mod grid;
 
 use bevy::prelude::*;
 use bevy_egui::{EguiPlugin, EguiPrimaryContextPass, EguiGlobalSettings, PrimaryEguiContext};
-use grid::{grid::*, placement::*};
+use grid::{grid::*, placement::*, components::*};
 use bevy_render::view::RenderLayers;
 
 fn main() {
@@ -35,7 +35,10 @@ fn setup_system(
     mut egui_global_settings: ResMut<EguiGlobalSettings>,
 ) {
     egui_global_settings.auto_create_primary_context = false;
-    commands.spawn(Camera2d);
+    commands.spawn((
+        Camera2d,
+        WorldCamera
+    ));
 
     commands.spawn((
         // The `PrimaryEguiContext` component requires everything needed to render a primary context.
@@ -47,5 +50,6 @@ fn setup_system(
             order: 1,
             ..default()
         },
+        UiCamera,
     ));
 }
